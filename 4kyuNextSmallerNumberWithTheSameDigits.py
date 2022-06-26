@@ -85,7 +85,7 @@ def find_smaller_digit_v1(ori_l, sorted_l, rels):
             rels.extend(sorted_l)
 
 
-def next_smaller(n):
+def next_smaller_my(n):
     print(n)
     digits = list(str(n))
     print(digits)
@@ -103,6 +103,22 @@ def next_smaller(n):
     else:
         return int("".join(results))
 
+def next_smaller(n):
+    s = list(str(n))
+    i = j = len(s) - 1
+    while i > 0 and s[i - 1] <= s[i]: i -= 1
+    if i <= 0: return -1
+
+    x = s[j]
+    y = s[i - 1]
+    while s[j] >= s[i - 1]:
+        j -= 1
+        x = s[j]
+        y = s[i - 1]
+    s[i - 1], s[j] = s[j], s[i - 1]
+    s[i:] = reversed(s[i:])
+    if s[0] == '0': return -1
+    return int(''.join(s))
 
 # print(next_smaller(1027))  #-1
 print(next_smaller(315))  #153
